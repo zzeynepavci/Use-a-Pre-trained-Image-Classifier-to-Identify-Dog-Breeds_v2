@@ -4,7 +4,7 @@
 #                                                                             
 # PROGRAMMER: Jennifer S.                                                    
 # DATE CREATED: 05/14/2018                                  
-# REVISED DATE:                               
+# REVISED DATE:        27.10.2024                  
 # PURPOSE:  This set of functions can be used to check your code after programming 
 #           each function. The top section of each part of the lab contains
 #           the section labeled 'Checking your code'. When directed within this
@@ -293,9 +293,16 @@ def check_calculating_results(results_dic, results_stats_dic):
                     
         # calculates statistics based upon counters from above
         n_pet_notd = n_images - n_pet_dog
-        pct_corr_dog = ( n_class_cdog / n_pet_dog )*100
+        if n_pet_dog > 0:
+          pct_corr_dog = (n_class_cdog / n_pet_dog) * 100
+        else:
+          pct_corr_dog = 0.0
         pct_corr_notdog = ( n_class_cnotd / n_pet_notd )*100
-        pct_corr_breed = ( n_match_breed / n_pet_dog )*100
+        if n_pet_dog > 0:
+           pct_corr_breed = (n_match_breed / n_pet_dog) * 100
+        else:
+           pct_corr_breed = 0.0
+
     
         # prints calculated statistics
         print("\n ** Statistics from calculates_results_stats() function:")
