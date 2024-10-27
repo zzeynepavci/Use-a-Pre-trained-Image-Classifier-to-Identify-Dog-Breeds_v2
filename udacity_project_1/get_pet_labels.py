@@ -4,7 +4,7 @@
 #                                                                             
 # PROGRAMMER: ZEYNEP AVCI
 # DATE CREATED:    25.10.2024                              
-# REVISED DATE: 
+# REVISED DATE:   27.10.2024
 # PURPOSE: Create the function get_pet_labels that creates the pet labels from 
 #          the image's filename. This function inputs: 
 #           - The Image Folder as image_dir within get_pet_labels function and 
@@ -41,29 +41,48 @@ def get_pet_labels(image_dir):
          index 0 = pet image label (string)
     """
     # Creates list of files in directory
-    in_files = listdir(image_dir)
+    filename_list = listdir(image_dir)
     
-    # Creates empty dictionary for the results (pet labels, etc.)
+    print('\n10 filename from pet_images')    
+    pet_labels = []
+    
+    # create empty dictionary    
     results_dic = dict()
     
-    # Processes through each file in the directory, extracting only the words
-    # of the file that contain the pet image label
-    for idx in range(0, len(in_files), 1):
-       if in_files[idx][0] != ".":
-           
-           # Creates temporary label variable to hold pet label name extracted 
-           file_name = in_files[idx]
-           pet_label = file_name.split("_")
-           pet_label = " ".join(label for label in pet_label if label.isalpha()).lower().strip()
-           pet_label = ""
-        
-       if in_files[idx] not in results_dic:
-           results_dic[in_files[idx]] = [pet_label]
-              
-       else:
-           print("** Warning: Duplicate files exist in directory:", 
-                 in_files[idx])
+    for idx in range(0, len(filename_list), 1):
+        if filename_list[idx][0] != ".":
+            pet_label = ''
+            pet_image_file_name = filename_list[idx]
+            word_pet_image_file_name = pet_image_file_name.lower().split('_')
+            pet_name = ''
+            
+            for word in word_pet_image_file_name:
+                if word.isalpha():
+                    pet_name += word + " "
+            
+            pet_name = pet_name.strip()
+            print('Filename = ', pet_image_file_name, 'label = ', pet_name)
+                      
+            print('\n{:2d} file: {:>25}'.format(idx + 1, filename_list[idx]))
+   
+            number_empty_dic = len(results_dic)
     
+            print('\nEmpty dictionary has {} items'.format(number_empty_dic))
+    
+            if filename_list[idx] not in results_dic:
+                results_dic[filename_list[idx]] = [pet_name]
+            else:
+                print('\nWARNING: key =' , filenames[idx],  'Exists results_dic with value =', results_dic[filenames[idx]])
+          
+    print('\nKey-value in results_dic:')
+    
+    for key in results_dic:
+          print('\nfilename = ', key, 'pet label = ', results_dic[key][0])
+             
+    number_full_dic = len(results_dic)
+    print('\nEmpty dictionary has {} items'.format(number_full_dic))
+    
+
     # Replace None with the results_dic dictionary that you created with this
     # function
     return results_dic
